@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <!-- bootstrap Iconos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"> 
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Ferre Online</title>
+</head>
+<body>
+    <header class="container-fluid bg-color">
+        <div class ="row">
+            <nav class="navbar navbar-expand-lg">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#"><p class="logo-Header"> ferrecord </p></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span ><i class=" fs-1 bi bi-bricks"></i></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active hover-footer" aria-current="page" href="#">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  hover-footer" aria-current="page" href="#">Catálogo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  hover-footer" href="#">Nosotros</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  hover-footer" href="#">Tips Construcción</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link "  href="#">Contacto</a>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+            </nav>
+        </div>
+    </header>
+    <main  class= "container-fluid">
+        <h1  class = text-center >Historial de Calculos</h1>
+<!-- Button  modal 1 -->
+        <button  type="button" class="btn btn-primary position-absolute bottom-0 end-0 mb-5 me-3"  data-bs-toggle="modal" data-bs-target="#Modal">
+        Calculadora de materiales DEMO 1
+        </button>
+<!-- Modal -->
+        <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Bienvenido a la calculadora de materiales</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body"> 
+                        ¿Que material quiere calcular?
+                        <form id ="form"><br>
+                            <fieldset class="row mx-3  mb-3">
+                                <select class="form-select" aria-label="Default select example" id ="select"> 
+                                    <option> Seleccione una opción </option>
+                                </select>
+                            </fieldse>
+                            <div class="row mb-3 mt-4">
+                                <label for="inputEmail3" class="col-sm-4 col-form-label"  >Alto (mts)</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control" id="alto" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="inputPassword3" class="col-sm-4 col-form-label" >Ancho (mts)</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control" id="ancho" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3" id ="manos">
+                                <label for="inputPassword3" class="col-sm-4 col-form-label" >Capas de Pintura </label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control" id="cantidadManos" required>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary" id="calcular"  >Calcular</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- tabla con calculos  -->
+    <table class ="table"id="tableCalc">
+        <thead>
+            <tr>
+            <th scope="col"> Fecha 
+                <button  type="button" class="btn btn-light btn-sm" id="ordenarFecha" ><i class="bi bi-arrow-down-up"></i></button>
+            </th>
+            <th scope="col"> Material</th>
+            <th scope="col">Metros Cuadrado</th>
+            <th scope="col">Cantidad Pintura(Lts)</th>
+            <th scope="col">Cantidad Material(Ud)</th>
+            </tr>   
+        </thead>
+        <tbody id="datosCalculos">
+            
+        </tbody>  
+    </table>   
+    <button type="button" class ="btn btn-primary " id="limpiarTabla">Limpiar tabla</button>
+    </main>
+    <!-- Script Luxon -->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.1.0/build/global/luxon.min.js"></script>
+    <!-- Script Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <!-- My Script-->
+    <script src="./script/script.js"></script>
+</body>
+</html>

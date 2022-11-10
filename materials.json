@@ -1,0 +1,45 @@
+[
+    {
+        
+      "names" : "Latex interior/exterior",
+      "id" : 1 ,
+      "coverSquareMeter" : 14
+    },
+    {
+        
+        "names" : "Latex lavable interior/exterior",
+        "id" : 1 ,
+        "coverSquareMeter" : 16
+      },
+      {
+        
+        "names" :"Esmalte sintético",
+        "id" : 1 ,
+        "coverSquareMeter" : 15
+      },
+      {
+        
+        "names" :"Barniz",
+        "id" : 1 ,
+        "coverSquareMeter" : 15
+      },
+      {
+        
+        "names" : "Ladrillo rojo común",
+        "id" : 2 ,
+        "coverSquareMeter" : 60
+      },
+      {
+        
+        "names" : "Ladrillo rojo hueco",
+        "id" : 2 ,
+        "coverSquareMeter" : 16
+      },
+      {
+        
+        "names" :"Bloques de cemento",
+        "id" : 2 ,
+        "coverSquareMeter" : 13
+      }
+
+]
