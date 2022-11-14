@@ -3,40 +3,16 @@
 //Calculadora de materiales de construccion 
 
 
-
-
- //Globals var 
-
-
-      //Main  var 
-const DateTime = luxon.DateTime
-const hoy =  DateTime.now().toFormat("FF")
-const select = document.getElementById ("select")     
-const datosCalculos = document.getElementById ("datosCalculos")
-const botonFecha = document.getElementById ("ordenarFecha")
-const botonLimpiarTabla = document.getElementById("limpiarTabla")
-let objetosCalculos = calculosLS()
-let heigth = document.getElementById("alto")
-let width =  document.getElementById("ancho")
-let cantidadDeManos  = document.getElementById("cantidadManos")
-
-
-
-
-      //Aux var 
-      let newParrafo = ""
-      let totalPintura = 0
-      let totalConstruccion = 0
-
-
-
  // Funciones 
 
-
+function datosLS (){
+    let datos = localStorage.getItem("calculos")
+    return  datos = JSON.parse(localStorage.getItem("calculos")) || []
+}
 
 function crearTabla (){
 
-   datosCalculos.innerHTML = ""
+   datosCalculos.innerHTML = " "
 
    for(const calculos of objetosCalculos) {
 
@@ -70,17 +46,6 @@ function crearTabla (){
 }
 
 
-function calculosLS(){
-
-const datosLS = localStorage.getItem("calculos") 
-
-   if (datosLS !== null){
-   return JSON.parse(datosLS)
-   }else { return []
-   }
-
-} 
-
 
 function squareMeter (){  
 
@@ -101,25 +66,26 @@ function cleanInput(){
 
 
 
-
-
 function calcularConstruccion() {
 
    totalConstruccion =   squareMeter()  *  select.value 
+
+
+    // cada ves que se ejecuta la funcion pongo el contador de la funcion opuesta es 0 para que no se generen valores que no quiero en la tabla 
    
    totalPintura = 0
 
       //captuto nombre de la opcion del selec
-
-   let options = select.options
-   let material   = options[options.selectedIndex].innerHTML
+   
+   const material = options[options.selectedIndex].innerHTML
 
 
       // creo un parrafo con el resultado del calculo 
 
    newParrafo.innerHTML = " "
    newParrafo = document.createElement("p")
-   newParrafo.innerHTML = "Superficie ingresada: " + squareMeter()  + " metros cuadrados." +"<br>" +  " Usted necesita "  +  totalConstruccion  + " " +  material + "."
+   newParrafo.innerHTML = `Superficie ingresada: ${squareMeter()} metros cuadrados.<br>  
+                           Usted necesita :${totalConstruccion} ${material}.`
    document.getElementById("form").append(newParrafo)
    
 
@@ -131,25 +97,60 @@ function calcularPintura() {
 
    totalPintura =  ((squareMeter()  * cantidadDeManos.value) /  select.value).toFixed(2)
 
+
    totalConstruccion = 0
 
       //captuto nombre de la opcion del selec
-
-   let options = select.options
-   let material   = options[options.selectedIndex].innerHTML
+   
+   const material = options[options.selectedIndex].innerHTML
 
       // creo un parrafo con el resultado del calculo 
 
    newParrafo.innerHTML = " "
    newParrafo = document.createElement("p")
-   newParrafo.innerHTML = "Superficie ingresada: " + squareMeter()  + " metros cuadrados." + "<br>" + "Capas de pintura: "+ cantidadDeManos.value +"<br> "   +   " Usted necesita "  +  totalPintura  + " litros  de " +  material + "."
+   newParrafo.innerHTML = `Superficie ingresada: ${squareMeter()}  metros cuadrados.<br>
+                           Capas de pintura: ${cantidadDeManos.value}. <br>
+                           Usted necesita: ${totalPintura} litros de ${material}.`
+
    document.getElementById("form").append(newParrafo)
    
 
 }
 
 
-//Crear lista de  opciones en el DOM de manera dinamica  consumimiendo un json
+//Globals var 
+
+
+      //Main  var 
+      
+      const DateTime = luxon.DateTime
+      const hoy =  DateTime.now().toFormat("FF")
+
+      const select = document.getElementById ("select")  
+      const datosCalculos = document.getElementById ("datosCalculos")
+      const botonFecha = document.getElementById ("ordenarFecha")
+      const botonLimpiarTabla = document.getElementById("limpiarTabla")
+      
+      
+      let heigth = document.getElementById("alto")
+      let width =  document.getElementById("ancho")
+      let cantidadDeManos  = document.getElementById("cantidadManos")
+
+      let options = select.options   
+      let objetosCalculos = datosLS()
+      
+      
+      
+      
+            //Aux var 
+            let newParrafo = ""
+            let totalPintura = 0
+            let totalConstruccion = 0
+      
+      
+
+
+//Crear lista de  opciones en el DOM de manera dinamica  consumiendo un json
 
 fetch("../materials.json")
    .then( (response) => {
@@ -170,9 +171,11 @@ fetch("../materials.json")
 
 
 
-
+// inicio la tabla de datos con los datos guardados en el local storage
 
 crearTabla ()
+
+
 
 //-------------------Eventos----------------------
 
@@ -189,14 +192,9 @@ select.addEventListener("click" , (event) =>{
 
    visible.style.display = "none"        // opcion  por defecto cada ves que se ejecuta el evento (Limpio)
 
-   let options = select.options
-   let id   = options[options.selectedIndex].id
+   const id   = options[options.selectedIndex].id
    
-
-   if(id === "1") {   
-      visible.style.display = "flex"        // despliega la opcion para ingresar cantidad de capas de pintura 
-   }
-
+   id ==="1" && (visible.style.display = "flex")
    
 })
 
@@ -217,10 +215,7 @@ let btnCalcular  = document.getElementById ("calcular")
    
 btnCalcular.addEventListener("click" , () => {
 
-
-
-   let options = select.options;
-   let id   = options[options.selectedIndex].id
+   const id   = options[options.selectedIndex].id
 
 
    switch (id) {
@@ -230,7 +225,7 @@ btnCalcular.addEventListener("click" , () => {
       case "2": calcularConstruccion()
       break;
 
-      default : alert ("Selecione una opcion")
+      default : swal( "Oh no!","Seleccione una opción","warning")
       break;
    }
 
@@ -270,7 +265,6 @@ botonFecha.addEventListener("click", ()=>{
 
    objetosCalculos.reverse((a) => {
    a.dateOfCal
-
    })
 
    crearTabla()
@@ -283,13 +277,15 @@ botonFecha.addEventListener("click", ()=>{
 botonLimpiarTabla.addEventListener("click", () => {
 
    
-   localStorage.setItem("calculos", JSON.stringify([]));
-
-
-   objetosCalculos = calculosLS()
+   localStorage.setItem("calculos", JSON.stringify([]))
+   
+   objetosCalculos =  datosLS()
 
    crearTabla()
 
-});
+})
+
+
+
 
 
